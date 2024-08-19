@@ -34,8 +34,9 @@ jobs:
         run: npm clean-install
       - name: Run unit tests
         run: npm run test-unit
-    if: ${{ success() || failure() }}
-    uses: actions/upload-artifact@v3
-    with:
-      name: unit-test-${{ github.sha }}
-      path: reports/report.xml
+      - name: Upload test report
+        if: always() # This ensures the artifact is uploaded even if the tests fail.
+        uses: actions/upload-artifact@v3
+        with:
+          name: unit-test-${{ github.sha }}
+          path: reports/report.xml
