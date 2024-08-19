@@ -34,7 +34,7 @@ jobs:
         run: npm clean-install
       - name: Run unit tests
         run: npm run test-unit
-    if: success() || failure()
+    if: ${{ success() || failure() }}
     uses: actions/upload-artifact@v3
     with:
       name: unit-test-${{ github.sha }}
